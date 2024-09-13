@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 
 
 @Repository
-class UserEntityAdapter(
+class UserAdapter(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper,
 ) : CreateUserPort, LoadUserPort {
@@ -30,6 +30,6 @@ class UserEntityAdapter(
             println("해당 사용자를 불러올 수 없습니다")
             return null
         }
-        return userMapper.mapToUser(userEntity)
+        return userMapper.mapToUserDomain(userEntity)
     }
 }

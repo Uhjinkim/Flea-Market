@@ -1,10 +1,14 @@
 package com.annotation.flea.domain.entity
 
+import java.time.LocalDateTime
+
 data class Transaction(
-    val customer: User,
+    val id: Long,
+    val product: Product,
     val seller: User,
-    val goods: Goods,
-    val price: Double,
+    val buyer: User,
+    val transactionStart: LocalDateTime,
+    var transactionEnd: LocalDateTime? = null,
+    var isActive: Boolean = true,
 ) {
-    val address = customer.address
 }

@@ -1,8 +1,10 @@
 package com.annotation.flea.config
 
+import com.annotation.flea.core.jwt.CustomLogoutFilter
 import com.annotation.flea.core.jwt.JWTFilter
 import com.annotation.flea.core.jwt.JWTUtil
 import com.annotation.flea.core.jwt.LoginFilter
+import com.annotation.flea.persistence.repository.RefreshTokenRepository
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.AuthenticationManager
@@ -13,13 +15,15 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.authentication.logout.LogoutFilter
 import org.springframework.web.cors.CorsConfiguration
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    val authenticationConfiguration: AuthenticationConfiguration,
-    val jwtUtil: JWTUtil
+    private val authenticationConfiguration: AuthenticationConfiguration,
+    private val jwtUtil: JWTUtil,
+    private val refreshTokenRepository: RefreshTokenRepository
 ) {
 
     @Bean
@@ -51,6 +55,7 @@ class SecurityConfig(
             .authorizeHttpRequests { it
                     .requestMatchers("/login", "/", "/join").permitAll()
                     .requestMatchers("/admin").hasRole("ADMIN")
+                    .requestMatchers("/reissue").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(
@@ -58,9 +63,13 @@ class SecurityConfig(
                 LoginFilter::class.java
             )
             .addFilterAt(
-                LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil),
+                LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshTokenRepository),
                 UsernamePasswordAuthenticationFilter::class.java
                 )
+            .addFilterBefore(
+                CustomLogoutFilter(jwtUtil, refreshTokenRepository),
+                LogoutFilter::class.java
+            )
             .sessionManagement { it
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
         return http.build()

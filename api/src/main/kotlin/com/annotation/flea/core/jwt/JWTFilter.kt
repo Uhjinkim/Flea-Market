@@ -2,6 +2,7 @@ package com.annotation.flea.core.jwt
 
 import com.annotation.flea.application.dto.CustomUserDetails
 import com.annotation.flea.domain.entity.User
+import io.jsonwebtoken.ExpiredJwtException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -15,34 +16,41 @@ class JWTFilter(private val jwtUtil: JWTUtil) : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val authorization = request.getHeader("Authorization")
-        if (authorization == null || !authorization.startsWith("Bearer ")) {
-            println("token null")
+        val accessToken = request.getHeader("access")
+
+        // if access token is null, do not filter
+        if(accessToken == null) {
             filterChain.doFilter(request, response)
+            return }
+
+        // if access token is expired, do not filter
+        try {
+            jwtUtil.isExpired(accessToken)
+        } catch (e: ExpiredJwtException) {
+            val writer = response.writer
+            writer.print("access token expired")
             return
         }
-        println("authorization now")
-        val token = authorization.split(" ")[1]
-        if (jwtUtil.isExpired(token)) {
-            println("token expired")
-            filterChain.doFilter(request, response)
+        // if access token is invalid, do not filter
+        val category = jwtUtil.getCategory(accessToken)
+        if(category != "access") {
+            val writer = response.writer
+            writer.print("invalid access token")
+            response.status = 401
             return
         }
-        val username = jwtUtil.getUsername(token)
-        val role = jwtUtil.getRole(token)
-        val email = jwtUtil.getEmail(token)
-        val name = jwtUtil.getName(token)
-        val phone = jwtUtil.getPhone(token)
-        val address = jwtUtil.getAddress(token)
+
+        val username = jwtUtil.getUsername(accessToken)
+        val role = jwtUtil.getRole(accessToken)
 
         val user = User(
             username = username,
             password = "temppassword",
-            email = email,
-            name = name,
-            address = User.Address("20 W 34th St.", "Empire State Building"),
-            phone = User.Phone(phone.substring(3, 7), phone.substring(7)),
-            role = role
+            email = "tempemail",
+            name = "tempname",
+            phone = User.Phone("0000", "0000"),
+            address = User.Address("0th St.", "0"),
+            role = role,
         )
         val customUserDetails = CustomUserDetails(user)
 

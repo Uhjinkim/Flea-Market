@@ -4,6 +4,7 @@ import com.annotation.flea.domain.entity.User
 import com.annotation.flea.persistence.entity.UserEntity
 import org.springframework.stereotype.Component
 
+// 도메인 객체 User, 영속성 엔티티 UserEntity 간의 매핑을 담당하는 UserMapper 클래스
 @Component
 class UserMapper(
 ) {
@@ -13,19 +14,19 @@ class UserMapper(
             password = user.password,
             email = user.email,
             name = user.name,
-            phone = "010${user.phone.former}${user.phone.latter}",
+            phone = UserEntity.Phone(user.phone.former, user.phone.latter),
+            address = UserEntity.Address(user.address.street, user.address.detail),
             role = user.role
         )
     }
-    fun mapToUser(entity: UserEntity): User {
-        val phone = entity.phone
+    fun mapToUserDomain(entity: UserEntity): User {
         return User(
             username = entity.username,
             password = entity.password,
             email = entity.email,
             name = entity.name,
-            address = User.Address("20 W 34th St.", "Empire State Building"),
-            phone = User.Phone(phone.substring(3, 7), phone.substring(7)),
+            address = User.Address(entity.address.street, entity.address.detail),
+            phone = User.Phone(entity.phone.former, entity.phone.latter),
             role = entity.role
         )
     }

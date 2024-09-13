@@ -1,6 +1,6 @@
 spring:
   application:
-    name: dmart
+    name: flea-market
   datasource:
     hikari:
       maximum-pool-size: 4
@@ -17,4 +17,5 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   jwt:
     secret: dasfadhasduanfafijofajfopfajwfahiufaf
-
+  profiles:
+    include: aws

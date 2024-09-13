@@ -1,5 +1,8 @@
 package com.annotation.flea.persistence.entity
 
+import jakarta.persistence.Column
+import jakarta.persistence.Embeddable
+import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -11,12 +14,27 @@ import java.util.UUID
 class UserEntity(
     @Id
     @GeneratedValue
+    @Column(name = "user_id")
     val id : UUID = UUID.randomUUID(),
     val username: String,
     val password: String,
     val email: String,
     val name : String,
-    val phone: String,
+    @Embedded
+    val address: Address,
+    @Embedded
+    val phone: Phone,
     val role: String,
+
 ) {
+    @Embeddable
+    data class Address(
+        val street: String,
+        val detail: String?
+    )
+    @Embeddable
+    data class Phone(
+        val former: String,
+        val latter: String
+    )
 }

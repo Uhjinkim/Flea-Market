@@ -17,6 +17,6 @@ class MainController {
         val iter = authorities.iterator()
         val auth = iter.next();
         val role = auth.authority
-        return "Dmart: Hello, $name!. Your role is $role"
+        return "Flea Market: Hello, $name!. Your role is $role"
     }
 }
