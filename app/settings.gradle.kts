@@ -23,9 +23,16 @@ dependencyResolutionManagement {
 
 rootProject.name = "Flea Market"
 include(":app")
+
 include(":feature")
 include(":feature:feed")
+include(":feature:favorite")
+include(":feature:chat")
+
 include(":core")
 include(":core:domain")
-//include(":build-logic")
-//include(":build-logic:convention")
+include(":core:designsystem")
+
+include(":feature:more")
+include(":feature:write")
+include(":core:data")

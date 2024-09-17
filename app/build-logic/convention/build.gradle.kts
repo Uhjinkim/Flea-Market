@@ -5,31 +5,23 @@ plugins {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "dmart.plugin.android.application"
+            id = "convention.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
-        register("androidApplicationCompose") {
-            id = "dmart.plugin.android.application.compose"
-            implementationClass = "AndroidApplicationComposeConventionPlugin"
-        }
         register("androidLibrary") {
-            id = "dmart.plugin.android.library"
+            id = "convention.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("compose") {
-            id = "dmart.plugin.compose"
+            id = "convention.compose"
             implementationClass = "ComposeConventionPlugin"
         }
         register("feature") {
-            id = "dmart.plugin.feature"
+            id = "convention.feature"
             implementationClass = "FeatureConventionPlugin"
         }
-        register("hilt") {
-            id = "dmart.plugin.hilt"
-            implementationClass = "AndroidHiltConventionPlugin"
-        }
         register("dynamicFeature") {
-            id = "dmart.plugin.dynamic-feature"
+            id = "convention.dynamic-feature"
             implementationClass = "DynamicFeatureConventionPlugin"
             version = "unspecified"
         }
@@ -41,8 +33,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 dependencies {
-    compileOnly(libs.gradle.plugin.agp)
-    compileOnly(libs.gradle.plugin.kotlin)
-    compileOnly(libs.gradle.plugin.ksp)
-    compileOnly(libs.compose.compiler.extension)
+    compileOnly(libs.android.gradle.plugin)
+    compileOnly(libs.kotlin.gradle.plugin)
 }

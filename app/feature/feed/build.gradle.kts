@@ -1,9 +1,11 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.dmart.dynamic.feature)
+    alias(libs.plugins.flea.feature)
+    alias(libs.plugins.kotlin.serialization)
 }
 android {
-    namespace = "com.anotn.dmart.feed"
+    namespace = "com.anotn.flea.feed"
     compileSdk = 34
 
     defaultConfig {
@@ -14,17 +16,24 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        }
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
         }
     }
 }
 
 dependencies {
-    implementation(project(":app"))
+    implementation(project(":core:designsystem"))
     implementation(libs.androidx.core.ktx)
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

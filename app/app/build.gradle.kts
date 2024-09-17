@@ -1,14 +1,16 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.flea.application)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.anotn.dmart"
+    namespace = "com.anotn.flea"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.anotn.dmart"
+        applicationId = "com.anotn.flea"
         minSdk = 32
         targetSdk = 34
         versionCode = 1
@@ -29,12 +31,10 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
     buildFeatures {
         compose = true
@@ -47,10 +47,18 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    dynamicFeatures += setOf(":feature:feed")
 }
 
 dependencies {
+    implementation(project(":feature:feed"))
+    implementation(project(":feature:favorite"))
+    implementation(project(":feature:chat"))
+    implementation(project(":feature:more"))
+    implementation(project(":feature:write"))
+
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -60,6 +68,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.core.splashscreen)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

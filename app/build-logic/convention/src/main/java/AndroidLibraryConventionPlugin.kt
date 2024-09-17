@@ -1,5 +1,5 @@
 import com.android.build.gradle.LibraryExtension
-import com.anotn.dmart.convention.configureKotlinAndroid
+import com.anotn.flea.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -11,19 +11,20 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
 
         with(target) {
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
-                apply("kotlin-parcelize")
             }
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-
             }
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
-                "testImplementation"(libs.findLibrary("androidx-junit").get())
+                add("implementation", libs.findLibrary("hilt-android").get())
+                add("compileOnly", libs.findLibrary("hilt-compiler").get())
+                add("implementation", libs.findLibrary("timber").get())
+                add("testImplementation", libs.findLibrary("junit").get())
+
             }
         }
     }

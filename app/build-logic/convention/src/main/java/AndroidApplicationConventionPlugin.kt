@@ -1,27 +1,33 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.anotn.dmart.convention.configureKotlinAndroid
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.anotn.flea.convention.configureAndroidCompose
+import com.anotn.flea.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.gradle.targets.js.npm.importedPackageDir
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             with(pluginManager) {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
             }
-            extensions.configure<ApplicationExtension> {
+            extensions.configure<BaseAppModuleExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 34
-
             }
+            val extension = extensions.getByType<BaseExtension>()
+            configureAndroidCompose(extension)
+            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
-                "testImplementation"(libs.findLibrary("androidx-junit").get())
+                add("implementation", libs.findLibrary("hilt-android").get())
+                add("compileOnly", libs.findLibrary("hilt-compiler").get())
+                add("implementation", libs.findLibrary("timber").get())
             }
 
         }
