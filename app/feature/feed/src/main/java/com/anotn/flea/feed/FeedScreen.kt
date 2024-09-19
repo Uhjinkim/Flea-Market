@@ -36,12 +36,11 @@ internal fun FeedScreen(
             verticalAlignment = Alignment.CenterVertically,
             content = {
                 Text(
-                    text = "인기 거래 상품",
+                    text = "전체 카테고리",
                     fontSize = 20.sp) }
         )
         Spacer(modifier = Modifier.height(10.dp))
-        LazyRow(
-        ) {
+        LazyRow {
             items(10, itemContent = { index ->
                 Box {
                     Column(
@@ -74,8 +73,7 @@ internal fun FeedScreen(
                     fontSize = 20.sp) }
         )
         Spacer(modifier = Modifier.height(10.dp))
-        LazyRow(
-        ) {
+        LazyRow {
             items(10, itemContent = { index ->
                 Box {
                     Column(
