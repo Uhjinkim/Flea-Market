@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.android.dynamic.feature) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.compose.compiler) apply false
+    alias(libs.plugins.ksp.plugin) apply false
+    alias(libs.plugins.hilt.android) apply false
 }

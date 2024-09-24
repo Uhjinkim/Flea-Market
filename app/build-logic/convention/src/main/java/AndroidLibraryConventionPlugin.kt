@@ -19,13 +19,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 configureKotlinAndroid(this)
             }
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-            dependencies {
-                add("implementation", libs.findLibrary("hilt-android").get())
-                add("compileOnly", libs.findLibrary("hilt-compiler").get())
-                add("implementation", libs.findLibrary("timber").get())
-                add("testImplementation", libs.findLibrary("junit").get())
 
-            }
         }
     }
 }

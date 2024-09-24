@@ -2,6 +2,8 @@ package com.anotn.flea.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
+val Transperent = Color(0x00000000)
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
@@ -26,3 +28,7 @@ val Black = Color(0xFF000000)
 val Pink200 = Color(0xFFF48FB1)
 val Pink500 = Color(0xFFE91E63)
 val Pink700 = Color(0xFFC2185B)
+
+val Red = Color(0xFFFF0000)
+val Green = Color(0xFF00FF00)
+val Blue = Color(0xFF0000FF)

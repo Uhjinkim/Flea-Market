@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.flea.application)
@@ -9,6 +11,13 @@ android {
     namespace = "com.anotn.flea"
     compileSdk = 34
 
+    val properties = Properties()
+    val propertiesFile = rootProject.file("local.properties")
+    if (propertiesFile.exists()) {
+        propertiesFile.inputStream().use { properties.load(it)}
+    }
+    val kakaoAppKey = properties.getProperty("kakao_native_app_key") ?: ""
+    val kakaoAuthHost = properties.getProperty("kakao_auth_host") ?: ""
     defaultConfig {
         applicationId = "com.anotn.flea"
         minSdk = 32
@@ -20,6 +29,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"$kakaoAppKey\"")
+        resValue("string", "kakao_auth_host", kakaoAuthHost)
     }
 
     buildTypes {
@@ -38,6 +49,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -55,6 +67,7 @@ dependencies {
     implementation(project(":feature:chat"))
     implementation(project(":feature:more"))
     implementation(project(":feature:write"))
+    implementation(project(":feature:search"))
 
     implementation(project(":core:designsystem"))
     implementation(project(":core:domain"))
@@ -71,6 +84,8 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.core.splashscreen)
+
+    implementation(libs.kakao.sdk.all)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

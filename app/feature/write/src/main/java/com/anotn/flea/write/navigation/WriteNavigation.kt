@@ -1,10 +1,5 @@
 package com.anotn.flea.write.navigation
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -16,8 +11,14 @@ import kotlinx.serialization.Serializable
 
 fun NavController.navigateToWrite() = navigate(WriteRoute)
 
-fun NavGraphBuilder.writeScreen() {
+fun NavGraphBuilder.writeScreen(
+    onBackClick: () -> Unit,
+    onAddClick: () -> Unit,
+) {
     composable<WriteRoute> {
-        WriteScreen()
+        WriteScreen(
+            onBackClick = onBackClick,
+            onAddClick = onAddClick,
+        )
     }
 }

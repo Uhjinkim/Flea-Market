@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,21 +18,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val appState = rememberAppState()
             FleaTheme {
                 App(
-                    appState = rememberAppState(),
+                    appState = appState,
                     modifier = Modifier,
-                    onTopBarActionClick = {},
                 )
                 }
             }
         }
+
     }
 
 @Preview
 @Composable
 fun FeedScreenPreview() {
     App(appState = rememberAppState(),
-        modifier = Modifier,
-        onTopBarActionClick = {})
+        modifier = Modifier,)
 }

@@ -1,40 +1,29 @@
 package com.anotn.flea.designsystem.component
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.autofill.AutofillType
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -48,11 +37,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.anotn.flea.designsystem.theme.Black
-import com.anotn.flea.designsystem.theme.Blue200
 import com.anotn.flea.designsystem.theme.Blue700
-import com.anotn.flea.designsystem.theme.Gray200
 import com.anotn.flea.designsystem.theme.Gray500
-import com.anotn.flea.designsystem.theme.Gray700
+import com.anotn.flea.designsystem.theme.Typography
 import com.anotn.flea.designsystem.theme.componentShapes
 
 @Composable
@@ -204,5 +191,32 @@ fun ClickableComponent(value: String) {
                 .firstOrNull()?.let { Log.d("ClickableComponent", "Terms of Service Clicked") }
         }
     )
+}
 
+@Composable
+fun TitleText(title: String, modifier: Modifier) {
+    Text(
+        text = title,
+        modifier = modifier,
+        style = Typography.titleLarge,
+        color = Black,
+    )
+}
+@Composable
+fun BodyLargeText(text: String, modifier: Modifier) {
+    Text(
+        text = text,
+        modifier = modifier,
+        style = Typography.bodyLarge,
+        color = Black,
+    )
+}
+@Composable
+fun LabelText(label: String, modifier: Modifier, color: Color? = null) {
+    Text(
+        text = label,
+        modifier = modifier,
+        style = Typography.labelMedium,
+        color = color ?: Gray500,
+    )
 }

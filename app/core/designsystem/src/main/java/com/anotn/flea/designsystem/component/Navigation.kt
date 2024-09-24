@@ -1,9 +1,8 @@
 package com.anotn.flea.designsystem.component
 
-import android.provider.ContactsContract.CommonDataKinds.Im
-import androidx.compose.foundation.background
+import android.inputmethodservice.Keyboard.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -13,10 +12,10 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.anotn.flea.designsystem.theme.FleaTheme
+import androidx.compose.ui.unit.sp
+
 
 @Composable
 fun RowScope.AppNavigationBarItem(
@@ -38,7 +37,7 @@ fun RowScope.AppNavigationBarItem(
         else Icon(imageVector = icon, contentDescription = label) },
         modifier = modifier,
         enabled = enabled,
-        label = { Text(text = label) },
+        label = { Text(text = label, fontSize = 12.sp)},
         alwaysShowLabel = alwaysShowLabel,
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = AppNavigationDefaults.navigationSelectedColor(),
@@ -56,12 +55,13 @@ fun AppNavigationBar(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit,
 ) {
+
     NavigationBar(
         modifier = modifier,
         contentColor = AppNavigationDefaults.navigationContentColor(),
         tonalElevation = 0.dp,
         content = content,
-    )
+        )
 }
 object AppNavigationDefaults {
     @Composable

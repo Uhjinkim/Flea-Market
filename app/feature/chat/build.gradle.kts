@@ -7,12 +7,6 @@ plugins {
 
 android {
     namespace = "com.anotn.flea.chat"
-    compileSdk = 34
-
-    defaultConfig {
-        minSdk = 32
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
 
     buildTypes {
         release {
@@ -29,6 +23,8 @@ android {
 dependencies {
 
     implementation(project(":core:designsystem"))
+    implementation(project(":core:data"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)

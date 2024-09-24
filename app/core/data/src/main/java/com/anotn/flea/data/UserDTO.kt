@@ -6,5 +6,4 @@ import kotlinx.serialization.Serializable
 data class UserDTO(
     val username : String,
     val password : String,
-)  {
-}
+)

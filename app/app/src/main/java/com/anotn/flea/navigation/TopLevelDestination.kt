@@ -1,24 +1,16 @@
 package com.anotn.flea.navigation
 
-import android.graphics.drawable.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ChatBubble
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.ChatBubble
 import androidx.compose.material.icons.outlined.ChatBubbleOutline
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.anotn.flea.chat.navigation.ChatsRoute
 import com.anotn.flea.favorite.navigation.FavoriteRoute
@@ -47,13 +39,6 @@ enum class TopLevelDestination(
         iconTextId = "favorite",
         titleTextId = "관심",
         route = FavoriteRoute::class
-    ),
-    WRITE(
-        selectedIcon = Icons.Filled.Add,
-        unselectedIcon = Icons.Outlined.Add,
-        iconTextId = "write",
-        titleTextId = "등록",
-        route = WriteRoute::class
     ),
 
     CHATS(

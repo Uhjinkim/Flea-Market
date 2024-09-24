@@ -11,8 +11,12 @@ import kotlinx.serialization.Serializable
 
 fun NavController.navigateToFavorite(navOptions: NavOptions) = navigate(FavoriteRoute, navOptions)
 
-fun NavGraphBuilder.favoriteScreen() {
+fun NavGraphBuilder.favoriteScreen(
+    onSearchClick : () -> Unit,
+) {
     composable<FavoriteRoute> {
-        FavoriteScreen()
+        FavoriteScreen(
+            onSearchClick = onSearchClick,
+        )
     }
 }

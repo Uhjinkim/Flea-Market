@@ -1,5 +1,4 @@
 [versions]
-
 # Kotlin and Android Versions
 agp = "8.6.1"
 kotlin = "2.0.20"
@@ -7,6 +6,9 @@ kotlinGradlePlugin = "1.5.31"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 lifecycleRuntimeKtx = "2.8.6"
+ksp = "2.0.20-1.0.25"
+
+datastore = "1.1.1"
 
 # Testing Versions
 junit = "4.13.2"
@@ -23,6 +25,7 @@ splashscreen = "1.0.1"
 
 # Hilt Versions
 hilt = "2.52"
+androidHilt = "1.2.0"
 
 # Retrofit Versions
 retrofit = "2.11.0"
@@ -31,6 +34,8 @@ kotlinxSerialization = "2.0.0"
 kotlinxJson = "1.7.1"
 timber = "5.0.1"
 material = "1.12.0"
+
+kakaoSdk = "2.20.6"
 
 
 [libraries]
@@ -41,7 +46,7 @@ kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-p
 compose-compiler-extension = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 # Testing Libraries
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -68,6 +73,7 @@ core-splashscreen = { group = "androidx.core", name = "core-splashscreen", versi
 #Hilt Libraries
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidHilt" }
 
 # Retrofit Libraries
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -77,6 +83,7 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
+kakao-sdk-all = { module = "com.kakao.sdk:v2-all", version.ref = "kakaoSdk" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -86,14 +93,16 @@ android-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "a
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin"}
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerialization" }
+ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
 
 #Convention Plugins
 flea-dynamic-feature = { id = "convention.dynamic-feature", version = "unspecified" }
 flea-feature = { id = "convention.feature", version = "unspecified" }
 flea-application = { id = "convention.android.application", version = "unspecified" }
 flea-library = { id = "convention.android.library", version = "unspecified" }
-
+flea-hilt = { id = "convention.hilt", version = "unspecified" }
 
 [bundles]
 compose-bundle = [

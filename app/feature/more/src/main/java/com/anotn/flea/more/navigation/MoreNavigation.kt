@@ -12,7 +12,8 @@ import kotlinx.serialization.Serializable
 
 fun NavController.navigateToMore(navOptions: NavOptions) = navigate(MoreRoute, navOptions)
 
-fun NavGraphBuilder.moreScreen() {
+fun NavGraphBuilder.moreScreen(
+) {
     composable<MoreRoute> {
         MoreScreen()
     }

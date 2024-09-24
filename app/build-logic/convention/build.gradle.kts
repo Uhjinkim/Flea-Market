@@ -20,6 +20,11 @@ gradlePlugin {
             id = "convention.feature"
             implementationClass = "FeatureConventionPlugin"
         }
+        register("hilt") {
+            id = "convention.hilt"
+            implementationClass = "HiltConventionPlugin"
+            version = "unspecified"
+        }
         register("dynamicFeature") {
             id = "convention.dynamic-feature"
             implementationClass = "DynamicFeatureConventionPlugin"

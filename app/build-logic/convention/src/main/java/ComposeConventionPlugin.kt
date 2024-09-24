@@ -1,5 +1,4 @@
 import com.android.build.gradle.BaseExtension
-import com.android.build.gradle.LibraryExtension
 import com.anotn.flea.convention.configureAndroidCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project

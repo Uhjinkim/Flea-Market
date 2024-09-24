@@ -1,6 +1,7 @@
 package com.anotn.flea.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.util.trace
@@ -12,9 +13,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.anotn.flea.chat.navigation.navigateToChats
-import com.anotn.flea.favorite.navigation.FavoriteRoute
 import com.anotn.flea.favorite.navigation.navigateToFavorite
-import com.anotn.flea.feed.navigation.FeedRoute
 import com.anotn.flea.feed.navigation.navigateToFeed
 import com.anotn.flea.more.navigation.navigateToMore
 import com.anotn.flea.navigation.TopLevelDestination
@@ -33,15 +32,16 @@ fun rememberAppState(
         AppState(
             navController = navController,
             coroutineScope = coroutineScope,
-        )
+            )
     }
 }
 
+@Stable
 class AppState(
     val navController: NavHostController,
     coroutineScope: CoroutineScope,
 ) {
-    private val currentDestination : NavDestination?
+    val currentDestination : NavDestination?
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
     val currentTopLevelDestination : TopLevelDestination?
@@ -50,25 +50,31 @@ class AppState(
                 currentDestination?.hasRoute(route = it.route) ?: false
             }
         }
+    val shouldShowBottomBar : Boolean
+        @Composable get() = currentTopLevelDestination != null
+
     val topLevelDestinations : List<TopLevelDestination> = TopLevelDestination.entries
 
     fun navigateToTopLevelDestination(destination: TopLevelDestination) {
-        trace("Navigation: ${destination.name}") {
-            val topLevelNavOptions = navOptions {
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
+            trace("Navigation: ${destination.name}") {
+                val topLevelNavOptions = navOptions {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
                 }
-                launchSingleTop = true
-                restoreState = true
+                when (destination) {
+                    TopLevelDestination.FEED -> navController.navigateToFeed(topLevelNavOptions)
+                    TopLevelDestination.FAVORITE -> navController.navigateToFavorite(topLevelNavOptions)
+                    TopLevelDestination.CHATS -> navController.navigateToChats(topLevelNavOptions)
+                    TopLevelDestination.MORE -> navController.navigateToMore(topLevelNavOptions)
+                }
             }
-            when (destination) {
-                TopLevelDestination.FEED -> navController.navigateToFeed(topLevelNavOptions)
-                TopLevelDestination.FAVORITE -> navController.navigateToFavorite(topLevelNavOptions)
-                TopLevelDestination.WRITE -> navController.navigateToWrite()
-                TopLevelDestination.CHATS -> navController.navigateToChats(topLevelNavOptions)
-                TopLevelDestination.MORE -> navController.navigateToMore(topLevelNavOptions)
-            }
-        }
-        fun navigateToWrite() = navController.navigateToWrite()
     }
+    fun navigateToWrite() {
+
+        navController.navigateToWrite()
+    }
+
 }
