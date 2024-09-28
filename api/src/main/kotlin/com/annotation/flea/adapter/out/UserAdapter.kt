@@ -3,7 +3,7 @@ package com.annotation.flea.adapter.out
 import com.annotation.flea.application.port.out.CreateUserPort
 import com.annotation.flea.application.port.out.LoadUserPort
 import com.annotation.flea.domain.entity.User
-import com.annotation.flea.persistence.mapper.out.UserMapper
+import com.annotation.flea.mapper.out.UserMapper
 import com.annotation.flea.persistence.repository.UserRepository
 import org.springframework.stereotype.Repository
 

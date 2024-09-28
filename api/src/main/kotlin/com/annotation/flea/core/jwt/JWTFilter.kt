@@ -1,6 +1,6 @@
 package com.annotation.flea.core.jwt
 
-import com.annotation.flea.application.dto.CustomUserDetails
+import com.annotation.flea.presentation.dto.CustomUserDetails
 import com.annotation.flea.domain.entity.User
 import io.jsonwebtoken.ExpiredJwtException
 import jakarta.servlet.FilterChain
@@ -16,7 +16,7 @@ class JWTFilter(private val jwtUtil: JWTUtil) : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val accessToken = request.getHeader("access")
+        val accessToken = request.getHeader("Authorization")
 
         // if access token is null, do not filter
         if(accessToken == null) {
@@ -48,7 +48,7 @@ class JWTFilter(private val jwtUtil: JWTUtil) : OncePerRequestFilter() {
             password = "temppassword",
             email = "tempemail",
             name = "tempname",
-            phone = User.Phone("0000", "0000"),
+            phone = "010-0000-0000",
             address = User.Address("0th St.", "0"),
             role = role,
         )

@@ -6,6 +6,6 @@ import org.springframework.boot.runApplication
 @SpringBootApplication
 class FleaApplication
 
-fun main(args: Array<String>) {
-    runApplication<FleaApplication>(*args)
-}
+    fun main(args: Array<String>) {
+        runApplication<FleaApplication>(*args)
+    }

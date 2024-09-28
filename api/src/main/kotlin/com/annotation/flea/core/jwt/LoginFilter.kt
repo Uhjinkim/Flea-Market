@@ -1,6 +1,5 @@
 package com.annotation.flea.core.jwt
 
-import com.annotation.flea.application.dto.CustomUserDetails
 import com.annotation.flea.persistence.entity.RefreshEntity
 import com.annotation.flea.persistence.repository.RefreshTokenRepository
 import io.jsonwebtoken.io.IOException
@@ -65,7 +64,7 @@ class LoginFilter(
         addRefreshEntity(username, refresh, 86400000L)
 
         // add access token to header and refresh token to cookie
-        response.setHeader("access", access)
+        response.setHeader("Authorization", access)
         response.addCookie(createCookie("refresh", refresh))
         response.status = 200
     }

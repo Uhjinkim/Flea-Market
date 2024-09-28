@@ -1,4 +1,4 @@
-package com.annotation.flea.persistence.mapper.out
+package com.annotation.flea.mapper.out
 
 import com.annotation.flea.domain.entity.User
 import com.annotation.flea.persistence.entity.UserEntity
@@ -14,7 +14,7 @@ class UserMapper(
             password = user.password,
             email = user.email,
             name = user.name,
-            phone = UserEntity.Phone(user.phone.former, user.phone.latter),
+            phone = user.phone,
             address = UserEntity.Address(user.address.street, user.address.detail),
             role = user.role
         )
@@ -26,7 +26,7 @@ class UserMapper(
             email = entity.email,
             name = entity.name,
             address = User.Address(entity.address.street, entity.address.detail),
-            phone = User.Phone(entity.phone.former, entity.phone.latter),
+            phone = entity.phone,
             role = entity.role
         )
     }

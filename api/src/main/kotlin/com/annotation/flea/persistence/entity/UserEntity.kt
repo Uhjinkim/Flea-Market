@@ -22,8 +22,7 @@ class UserEntity(
     val name : String,
     @Embedded
     val address: Address,
-    @Embedded
-    val phone: Phone,
+    val phone: String,
     val role: String,
 
 ) {
@@ -31,10 +30,5 @@ class UserEntity(
     data class Address(
         val street: String,
         val detail: String?
-    )
-    @Embeddable
-    data class Phone(
-        val former: String,
-        val latter: String
     )
 }

@@ -1,4 +1,4 @@
-package com.annotation.flea.application.dto
+package com.annotation.flea.presentation.dto
 
 import com.annotation.flea.domain.entity.User
 import org.springframework.security.core.GrantedAuthority

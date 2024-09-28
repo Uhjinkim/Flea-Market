@@ -4,10 +4,10 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RestController
 
 
-@Controller
-@ResponseBody
+@RestController
 class MainController {
     @GetMapping("/")
     fun mainP(): String {
@@ -15,7 +15,7 @@ class MainController {
         val authentication = SecurityContextHolder.getContext().authentication
         val authorities = authentication.authorities
         val iter = authorities.iterator()
-        val auth = iter.next();
+        val auth = iter.next()
         val role = auth.authority
         return "Flea Market: Hello, $name!. Your role is $role"
     }
