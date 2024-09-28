@@ -1,8 +1,7 @@
 package com.annotation.flea.adapter.out
 
-import com.annotation.flea.domain.entity.Product
-import com.annotation.flea.persistence.entity.ProductEntity
 import com.annotation.flea.mapper.out.ImageMapper
+import com.annotation.flea.persistence.entity.ProductEntity
 import com.annotation.flea.persistence.repository.ImageRepository
 import org.springframework.stereotype.Repository
 

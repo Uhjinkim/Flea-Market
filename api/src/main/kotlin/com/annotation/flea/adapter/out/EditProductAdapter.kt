@@ -3,12 +3,8 @@ package com.annotation.flea.adapter.out
 import com.annotation.flea.application.port.out.EditProductPort
 import com.annotation.flea.domain.entity.Product
 import com.annotation.flea.mapper.out.CategoryMapper
-import com.annotation.flea.mapper.out.ImageMapper
-import com.annotation.flea.mapper.out.ProductMapper
-import com.annotation.flea.persistence.repository.ImageRepository
 import com.annotation.flea.persistence.repository.ProductRepository
 import org.springframework.stereotype.Repository
-import java.time.LocalDateTime
 
 @Repository
 class EditProductAdapter(

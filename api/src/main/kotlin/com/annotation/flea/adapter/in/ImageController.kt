@@ -3,9 +3,7 @@ package com.annotation.flea.adapter.`in`
 import com.annotation.flea.core.aws.ImageType
 import com.annotation.flea.core.aws.S3Uploader
 import com.fasterxml.jackson.databind.ObjectMapper
-import jakarta.servlet.http.HttpServletResponse
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
