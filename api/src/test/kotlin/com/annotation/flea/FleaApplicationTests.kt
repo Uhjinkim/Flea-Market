@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class FleaApplicationTests @Autowired constructor(
-    private val addressRepository: AddressViewRepository
+class FleaApplicationTests(
+    @Autowired private val addressRepository: AddressViewRepository
 ) {
 
     @Test
     fun contextLoads() {
-        val query = "부천시 경인로 590"
+        val query = "용산구 한강대로"
         val parts = query.split(" ")
         val lastPart = parts.last().split("-")
         var sido = ""
@@ -28,7 +28,7 @@ class FleaApplicationTests @Autowired constructor(
         if(lastPart[0].toIntOrNull() != null) {
             //건물번호 있을 때 저장
             mainNumber = lastPart[0].toInt()
-            subNumber = lastPart[1].toIntOrNull()?:0
+            subNumber = if(lastPart.size > 1) lastPart[1].toInt() else 0
             isNumberExist = true
         }
         parts.forEachIndexed { index, part ->
@@ -73,8 +73,8 @@ class FleaApplicationTests @Autowired constructor(
             addressRepository.findByLotAddr(sido, sigungu, eupmyeondong, ri, lotMainNumber, lotSubNumber)
         }
         addressList.forEach {
-            println("(${it.postalCode}) ${it.sidoName} ${it.sigunguName} ${it.roadName} ${ if(it.undergroundStatus == "1") "(지하)" else null }${it.buildingMainNumber} ${it.buildingSubNumber} ${if(it.aptType=="1") it.sigunguBuildingName else null} ${if(it.legalRiName == null) it.legalEupmyeondongName else null }")
-            println("(${it.postalCode}) ${it.sidoName} ${it.sigunguName} ${it.legalEupmyeondongName} ${it.legalRiName} ${it.lotMainNumber}${if(it.lotSubNumber == 0) null else "-"+it.lotSubNumber}")
+            println("도로명: (${it.postalCode}) ${it.sidoName} ${it.sigunguName} ${it.roadName} ${ if(it.undergroundStatus == "1") "(지하)" else "" } ${it.buildingMainNumber}${if(it.buildingSubNumber == 0) "" else "-"+ it.buildingSubNumber} ${if(it.aptType=="1") it.sigunguBuildingName else ""} ${if(it.legalRiName == null) it.legalEupmyeondongName else "" }")
+            println("지번: (${it.postalCode}) ${it.sidoName} ${it.sigunguName} ${it.legalEupmyeondongName} ${if(it.legalRiName == null) "" else it.legalRiName} ${it.lotMainNumber}${if(it.lotSubNumber == 0) "" else "-"+it.lotSubNumber}")
         }
     }
 

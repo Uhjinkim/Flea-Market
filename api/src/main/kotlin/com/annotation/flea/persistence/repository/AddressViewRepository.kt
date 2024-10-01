@@ -14,8 +14,8 @@ interface AddressViewRepository : JpaRepository<AddressView, String> {
     WHERE (a.sidoName like concat('%', :sido, '%'))
         AND (a.sigunguName like concat('%', :sigungu, '%'))
         AND (a.roadName like concat('%', :roadName, '%'))
-        AND (a.buildingMainNumber = :buildingMainNumber)
-        AND (a.buildingSubNumber = :buildingSubNumber)
+        AND (:buildingMainNumber = 0 OR a.buildingMainNumber = :buildingMainNumber)
+        AND (:buildingSubNumber = 0 OR a.buildingSubNumber = :buildingSubNumber)
             """)
     fun findByRoadAddr(@Param("sido") sido: String,
                        @Param("sigungu") sigungu: String,
