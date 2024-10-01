@@ -53,6 +53,7 @@ class JWTFilter(private val jwtUtil: JWTUtil) : OncePerRequestFilter() {
             phone = "010-0000-0000",
             nickname = "tempnickname",
             address = emptySet(),
+            profileImage = null,
             role = if(role == Role.ROLE_ADMIN.name) Role.ROLE_ADMIN else Role.ROLE_MEMBER,
         )
         val customUserDetails = CustomUserDetails(user)

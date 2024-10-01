@@ -1,5 +1,7 @@
 package com.annotation.flea.persistence.entity
 
+import com.annotation.flea.domain.entity.Role
+import com.annotation.flea.domain.entity.User
 import com.fasterxml.uuid.Generators
 import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
@@ -36,19 +38,29 @@ class UserEntity(
     //회원 연락처 정보: 휴대폰 번호 11자 제한
     val phone: String,
 
+    //회원 프로필 이미지 정보: 이미지 URL
+    @Column(name = "profile_image")
+    val profileImage: String? = null,
+
     //회원 권한 정보: 일반 사용자, 관리자
     val role: String,
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+) : BaseTimeEntity() {
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
-) {
-    //회원 프로필 이미지 정보: 이미지 URL
-    @OneToOne
-    @JoinColumn(name = "profile_image")
-    var profileImage: ProfileImageEntity? = null
+    fun mapToDomain() : User {
+        return User(
+            id = this.id,
+            username = this.username,
+            password = this.password,
+            email = this.email,
+            name = this.name,
+            nickname = this.nickname,
+            phone = this.phone,
+            profileImage = this.profileImage,
+            role = when(this.role) {
+                "ROLE_ADMIN" -> Role.ROLE_ADMIN
+                else -> Role.ROLE_MEMBER
+            }
+        )
+    }
 }

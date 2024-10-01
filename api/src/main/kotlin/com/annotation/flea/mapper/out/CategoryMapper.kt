@@ -13,11 +13,4 @@ class CategoryMapper {
             parent = category.parent?.let {mapToCategoryEntity(it)},
         )
     }
-    fun mapToCategoryDomain(entity: CategoryEntity) : Category{
-        return Category(
-            id = entity.id,
-            name = entity.name,
-            parent = entity.parent?.let {mapToCategoryDomain(it)},
-        )
-    }
 }

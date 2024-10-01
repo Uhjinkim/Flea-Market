@@ -1,6 +1,6 @@
 package com.annotation.flea.adapter.`in`
 
-import com.annotation.flea.core.aws.ImageType
+import com.annotation.flea.domain.entity.ImageType
 import com.annotation.flea.core.aws.S3Uploader
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.http.ResponseEntity

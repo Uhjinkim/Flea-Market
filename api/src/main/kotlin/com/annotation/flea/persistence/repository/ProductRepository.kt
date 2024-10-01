@@ -11,11 +11,17 @@ import java.util.UUID
 interface ProductRepository : JpaRepository<ProductEntity, UUID> {
 
     fun findAllByOrderByCreatedAtDesc(page: Pageable) : Page<ProductEntity>
-    fun findByCategory(category: CategoryEntity, pageable: Pageable): Page<ProductEntity>
+
+    fun findAllByCategory(categoryId: Long, pageable: Pageable): Page<ProductEntity>
+
     @Query("SELECT p FROM ProductEntity p WHERE p.title LIKE %:keyword% OR p.description LIKE %:keyword%")
-    fun findByTitleContainingOrDescriptionContaining(keyword : String): List<ProductEntity>
-    fun findBySerialNumber(serialNumber: String): List<ProductEntity>
+    fun findByTitleContainingOrDescriptionContaining(keyword : String, pageable: Pageable): Page<ProductEntity>
+
+    fun findBySerialNumber(serialNumber: String, pageable: Pageable): Page<ProductEntity>
+
     @Query("SELECT p FROM ProductEntity p WHERE p.serialNumber = :serialNumber AND p.isSold = false")
     fun existsBySerialNumberNotSold(serialNumber: String): Boolean
+
+
     fun findByPriceBetween(min: Int, max: Int): List<ProductEntity>
 }

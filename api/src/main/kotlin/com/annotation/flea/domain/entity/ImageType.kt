@@ -1,4 +1,4 @@
-package com.annotation.flea.core.aws
+package com.annotation.flea.domain.entity
 
 enum class ImageType {
     PROFILE,

@@ -1,5 +1,6 @@
 package com.annotation.flea.core.aws
 
+import com.annotation.flea.domain.entity.ImageType
 import io.awspring.cloud.s3.ObjectMetadata
 import io.awspring.cloud.s3.S3Template
 import org.springframework.beans.factory.annotation.Value
@@ -14,7 +15,8 @@ class S3Uploader(
     private val imageUtil: ImageUtil,
 ) {
     fun uploadFile(
-        multipartFile: MultipartFile, type: ImageType) : String {
+        multipartFile: MultipartFile, type: ImageType
+    ) : String {
         val folder = when(type) {
             ImageType.PROFILE -> "profile-images/"
             ImageType.PRODUCT -> "product-images/"

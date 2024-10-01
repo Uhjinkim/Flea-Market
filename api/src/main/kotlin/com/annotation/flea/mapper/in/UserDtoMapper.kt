@@ -1,5 +1,6 @@
 package com.annotation.flea.mapper.`in`
 
+import com.annotation.flea.domain.entity.Role
 import com.annotation.flea.domain.entity.User
 import com.annotation.flea.presentation.dto.UserDTO
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component
 class UserDtoMapper(
     private val bCryptPasswordEncoder: BCryptPasswordEncoder,
 ) {
-    fun mapToDomain(userDTO: UserDTO): User {
+    fun mapToDomain(userDTO: UserDTO, role: Role): User {
         return User(
             id = userDTO.id,
             username = userDTO.username,
@@ -18,7 +19,8 @@ class UserDtoMapper(
             email = userDTO.email,
             phone = userDTO.phone,
             nickname = userDTO.nickname,
-            role = userDTO.role,
+            profileImage = userDTO.profileImage,
+            role = role,
         )
     }
     fun encodePassword(password: String): String {

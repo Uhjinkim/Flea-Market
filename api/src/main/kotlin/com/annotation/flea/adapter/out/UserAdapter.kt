@@ -30,6 +30,6 @@ class UserAdapter(
             println("해당 사용자를 불러올 수 없습니다")
             return null
         }
-        return userMapper.mapToUserDomain(userEntity)
+        return userEntity.mapToDomain()
     }
 }

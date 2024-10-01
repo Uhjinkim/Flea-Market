@@ -1,19 +1,17 @@
 package com.annotation.flea.mapper.out
 
-import com.annotation.flea.persistence.entity.ProductEntity
+import com.annotation.flea.domain.entity.Image
 import com.annotation.flea.persistence.entity.ProductImageEntity
 import org.springframework.stereotype.Component
+import java.util.UUID
 
 @Component
 class ProductImageMapper {
-    fun mapToImageEntity(image: String, product: ProductEntity) : ProductImageEntity {
+    fun mapToImageEntity(image: Image, productId : UUID) : ProductImageEntity {
         return ProductImageEntity(
-            imageUrl = image,
-            product = product,
+            imageUrl = image.imageUrl,
+            product = productId,
         )
 
-    }
-    fun mapToImageDomain(entity: ProductImageEntity) : String {
-        return entity.imageUrl
     }
 }

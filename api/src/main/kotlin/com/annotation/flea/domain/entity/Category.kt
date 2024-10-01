@@ -4,6 +4,6 @@ data class Category(
     val id: Long,
     val name: String,
     val parent: Category? = null,
-    val subcategories: List<Category> = listOf()
+    val depth : Int,
 ) {
 }

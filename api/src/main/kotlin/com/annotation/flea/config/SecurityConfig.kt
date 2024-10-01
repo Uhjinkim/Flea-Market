@@ -56,6 +56,7 @@ class SecurityConfig(
                     .requestMatchers("/login", "/", "/join").permitAll()
                     .requestMatchers("/admin").hasRole("ADMIN")
                     .requestMatchers("/reissue").permitAll()
+                    .requestMatchers("/error").permitAll()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(

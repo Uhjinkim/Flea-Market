@@ -1,9 +1,7 @@
 package com.annotation.flea.mapper.`in`
 
+import com.annotation.flea.domain.entity.*
 import com.annotation.flea.presentation.dto.ProductDTO
-import com.annotation.flea.domain.entity.Category
-import com.annotation.flea.domain.entity.Product
-import com.annotation.flea.domain.entity.User
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -19,10 +17,11 @@ class ProductDtoMapper {
             price = product.price.toString(),
             categoryId = product.category.id,
             categoryName = product.category.name,
+            categoryDepth = product.category.depth.toString(),
             serialNumber = product.serialNumber,
-            images = product.images,
-            createdAt = product.createdAt.toString(),
-            updatedAt = product.createdAt.toString(),
+            images = product.images.map { it.imageUrl },
+            createdAt = product.createdAt,
+            updatedAt = product.createdAt,
             soldOut = if(product.isSold) "T" else "F",
             seller = product.seller.username,
         )
@@ -33,11 +32,16 @@ class ProductDtoMapper {
             title = productDto.title,
             description = productDto.description,
             price = productDto.price.toInt(),
-            category = Category(id = productDto.categoryId, name = productDto.categoryName, parent = null),
+            category = Category(
+                id = productDto.categoryId,
+                name = productDto.categoryName,
+                depth = productDto.categoryDepth.toInt()
+            ),
             serialNumber = productDto.serialNumber,
             seller = user,
-            images = productDto.images,
-            createdAt = LocalDateTime.now(),
+            images = productDto.images.map { Image(imageUrl = it, owner = user, type = ImageType.PRODUCT) },
+            createdAt = productDto.createdAt,
+            updatedAt = productDto.updatedAt
         )
     }
 }

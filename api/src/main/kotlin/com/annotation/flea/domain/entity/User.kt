@@ -9,12 +9,10 @@ data class User(
     val name: String,
     val email: String,
     val nickname: String,
-    val profileImage: String = "",
+    val profileImage: String?,
     var address: Set<Address>? = setOf(),
     val phone: String,
-    val role : Role?,
-    val products : List<Product> = listOf(),
-    val transactions : List<Transaction> = listOf()
+    val role : Role,
 ) {
     data class Address(
         val id: UUID?,

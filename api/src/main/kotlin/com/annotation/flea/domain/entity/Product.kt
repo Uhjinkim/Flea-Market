@@ -9,11 +9,12 @@ data class Product(
     val title: String,
     val description: String,
     val price: Int,
-    val images : List<String>,
+    val images : List<Image>,
     val category: Category,
     val serialNumber: String,
     val seller: User,
     val createdAt : LocalDateTime,
+    val updatedAt : LocalDateTime,
     var isSold: Boolean = false,
 ) {
 }

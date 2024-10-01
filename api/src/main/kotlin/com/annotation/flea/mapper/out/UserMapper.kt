@@ -26,19 +26,4 @@ class UserMapper(
         )
         return entity
     }
-    fun mapToUserDomain(entity: UserEntity): User {
-
-        val user = User(
-            id = entity.id,
-            username = entity.username,
-            password = entity.password,
-            email = entity.email,
-            name = entity.name,
-            phone = entity.phone,
-            nickname = entity.nickname,
-            role = if(entity.role == Role.ROLE_ADMIN.name) Role.ROLE_ADMIN
-                else Role.ROLE_MEMBER
-        )
-        return user
-    }
 }

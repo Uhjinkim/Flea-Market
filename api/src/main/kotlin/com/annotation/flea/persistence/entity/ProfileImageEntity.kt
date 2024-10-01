@@ -1,27 +1,31 @@
 package com.annotation.flea.persistence.entity
 
+import com.annotation.flea.domain.entity.Image
+import com.annotation.flea.domain.entity.ImageType
+import com.annotation.flea.domain.entity.User
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
+import java.util.*
 
 @Entity
 @Table(name = "profile_image")
 class ProfileImageEntity(
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    val userId: UserEntity,
 
     @Id
+    @Column(name = "user_id")
+    val userId: UUID,
+
     @Column(name = "image_url")
     val imageUrl: String,
 
-    @Column(name = "created_at")
-    @CreationTimestamp
-    val createdAt: LocalDateTime = LocalDateTime.now(),
-
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
-
-)
+    ) : BaseTimeEntity() {
+        fun mapToDomain(user: User) : Image {
+            return Image(
+                owner = user,
+                imageUrl = imageUrl,
+                type = ImageType.PROFILE
+            )
+        }
+    }

@@ -1,12 +1,12 @@
 package com.annotation.flea.adapter.`in`
 
-import com.annotation.flea.presentation.dto.CustomUserDetails
-import com.annotation.flea.presentation.dto.ProductDTO
 import com.annotation.flea.application.service.ProductService
 import com.annotation.flea.application.service.UserService
 import com.annotation.flea.domain.entity.Category
+import com.annotation.flea.mapper.`in`.CategoryDtoMapper
 import com.annotation.flea.mapper.`in`.ProductDtoMapper
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.annotation.flea.presentation.dto.CustomUserDetails
+import com.annotation.flea.presentation.dto.ProductDTO
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.*
@@ -18,6 +18,7 @@ class ProductController(
     private val productService: ProductService,
     private val userService: UserService,
     private val productDtoMapper: ProductDtoMapper,
+    private val categoryDtoMapper: CategoryDtoMapper,
 ) {
     val mapper = jacksonObjectMapper()
     @GetMapping("/list")
@@ -32,10 +33,13 @@ class ProductController(
         return mapper.writeValueAsString(products)
     }
 
-    @GetMapping("/options")
+    @GetMapping("/new")
     fun getProductOptions() : String {
         val categories = productService.getCategoryList()
-        return mapper.writeValueAsString(categories)
+        val response = categories.map {
+            categoryDtoMapper.mapToDto(it)
+        }
+        return mapper.writeValueAsString(response)
     }
 
     @PostMapping("/create")
