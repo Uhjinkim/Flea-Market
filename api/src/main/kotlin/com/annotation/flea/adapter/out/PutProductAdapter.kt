@@ -1,6 +1,7 @@
 package com.annotation.flea.adapter.out
 
 import com.annotation.flea.application.port.out.PutProductPort
+import com.annotation.flea.domain.entity.Category
 import com.annotation.flea.domain.entity.Product
 import com.annotation.flea.mapper.out.CategoryMapper
 import com.annotation.flea.mapper.out.ProductMapper
@@ -15,19 +16,23 @@ class PutProductAdapter(
     private val productMapper: ProductMapper,
     private val categoryMapper: CategoryMapper
 ) : PutProductPort {
-    override fun putProduct(product: Product): Boolean {
-        if(!categoryRepository.existsByName(product.category.name)) {
-            println("Category not found")
-            return false
+    // 카테고리 목록을 불러오는 메서드
+    override fun loadCategoryList(): List<Category> {
+        val categoryList = categoryRepository.findAll()
+        return categoryList.map {
+            categoryMapper.mapToCategoryDomain(it)
         }
-        val category = categoryRepository.findByNameAndParent(product.category.name,
-            product.category.parent?.let { categoryMapper.mapToCategoryEntity(it) })
-        println(category)
+    }
+    // 상품을 등록하는 메서드
+    override fun putProduct(product: Product): Boolean {
+        //카테고리 객체 매핑
+        categoryMapper.mapToCategoryEntity(product.category)
+        //상품 객체 매핑
         val entity = productMapper.mapToProductEntity(product)
 
-        // 일련번호가 중복되는 상품이 있는지 확인, 있으면 거래 완료 여부 확인
-        // 거래 진행 중인 상품일 경우 false 반환
-        //로직 추가 예정
+        // 일련번호가 같은 상품 중에 거래 진행중인 상품이 있는지 확인 후 없으면 저장
+        if (productRepository.existsBySerialNumberNotSold(entity.serialNumber))
+            return false
 
         productRepository.save(entity)
         return true

@@ -12,7 +12,7 @@ class JoinService(
     private val mapper: UserDtoMapper,
 ) {
     fun join(userDTO: UserDTO) : Boolean {
-        val data = mapper.mapToUser(userDTO, Role.ROLE_MEMBER)
+        val data = mapper.mapToDomain(userDTO)
         if(createUserPort.createUser(data)) {
             println("회원가입 성공")
             return true

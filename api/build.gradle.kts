@@ -35,9 +35,12 @@ dependencies {
     implementation("org.springframework.modulith:spring-modulith-starter-core")
     implementation("org.springframework.modulith:spring-modulith-starter-jpa")
 
+    implementation("com.linecorp.kotlin-jdsl:spring-data-jpa-support:3.5.2")
+
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-authorization-server")
     testImplementation("org.springframework.security:spring-security-test")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -50,6 +53,8 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
 
     implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.2.0")
+
+    implementation("com.fasterxml.uuid:java-uuid-generator:5.1.0")
 }
 
 dependencyManagement {

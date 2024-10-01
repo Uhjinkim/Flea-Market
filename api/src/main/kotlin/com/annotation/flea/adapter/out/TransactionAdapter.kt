@@ -10,7 +10,6 @@ class TransactionAdapter : TransactionPort {
         transaction.isActive = false
 
         val product = transaction.product
-        product.buyer = transaction.buyer
         product.isSold = true
 
     }

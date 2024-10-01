@@ -13,6 +13,7 @@ import java.util.*
 class ProductDtoMapper {
     fun mapToProductDto(product: Product) : ProductDTO {
         return ProductDTO(
+            id = product.id,
             title = product.title,
             description = product.description,
             price = product.price.toString(),
@@ -26,9 +27,9 @@ class ProductDtoMapper {
             seller = product.seller.username,
         )
     }
-    fun mapToProduct(productDto: ProductDTO, user: User) : Product {
+    fun mapToDomain(productDto: ProductDTO, user: User) : Product {
         return Product(
-            id = UUID.randomUUID(),
+            id = productDto.id,
             title = productDto.title,
             description = productDto.description,
             price = productDto.price.toInt(),

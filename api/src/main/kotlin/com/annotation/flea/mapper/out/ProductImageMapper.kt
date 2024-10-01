@@ -5,7 +5,7 @@ import com.annotation.flea.persistence.entity.ProductImageEntity
 import org.springframework.stereotype.Component
 
 @Component
-class ImageMapper {
+class ProductImageMapper {
     fun mapToImageEntity(image: String, product: ProductEntity) : ProductImageEntity {
         return ProductImageEntity(
             imageUrl = image,
@@ -14,6 +14,6 @@ class ImageMapper {
 
     }
     fun mapToImageDomain(entity: ProductImageEntity) : String {
-        return mutableListOf(entity.imageUrl).toString()
+        return entity.imageUrl
     }
 }

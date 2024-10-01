@@ -3,7 +3,7 @@ package com.annotation.flea.persistence.entity
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "category_entity")
+@Table(name = "category")
 class CategoryEntity(
     @Id
     @Column(name = "category_id")

@@ -11,7 +11,7 @@ class CustomUserDetails(
         val collection = mutableListOf<GrantedAuthority>()
 
         collection.add(GrantedAuthority {
-            user.role
+            user.role!!.name
         })
         return collection
     }

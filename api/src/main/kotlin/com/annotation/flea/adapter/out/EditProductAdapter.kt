@@ -17,7 +17,7 @@ class EditProductAdapter(
             println("Product is already sold")
             return false
         }
-        val entity = productRepository.findById(product.id).orElseThrow {
+        val entity = productRepository.findById(product.id!!).orElseThrow {
             NoSuchElementException("Product not found")
         }
         entity.title = product.title

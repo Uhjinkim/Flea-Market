@@ -1,6 +1,10 @@
 package com.annotation.flea.presentation.dto
 
+import java.util.*
+
+
 data class ProductDTO(
+    val id: UUID?,
     val title: String,
     val description: String,
     val price: String,

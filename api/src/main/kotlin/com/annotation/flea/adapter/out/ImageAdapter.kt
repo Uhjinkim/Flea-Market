@@ -1,14 +1,18 @@
 package com.annotation.flea.adapter.out
 
-import com.annotation.flea.mapper.out.ImageMapper
+import com.annotation.flea.mapper.out.ProductImageMapper
+import com.annotation.flea.mapper.out.ProfileImageMapper
 import com.annotation.flea.persistence.entity.ProductEntity
-import com.annotation.flea.persistence.repository.ImageRepository
+import com.annotation.flea.persistence.repository.ProductImageRepository
+import com.annotation.flea.persistence.repository.ProfileImageRepository
 import org.springframework.stereotype.Repository
 
 @Repository
 class ImageAdapter(
-    private val imageMapper: ImageMapper,
-    private val imageRepository: ImageRepository,
+    private val productImageMapper: ProductImageMapper,
+    private val profileImageMapper: ProfileImageMapper,
+    private val productImageRepository: ProductImageRepository,
+    private val profileImageRepository: ProfileImageRepository,
 ) {
     fun syncProductImage(product: ProductEntity, imageUrls: List<String>) {
         val productImages = product.images.toMutableList()
@@ -23,11 +27,11 @@ class ImageAdapter(
             }
         }
         imagesToDelete.forEach {
-            imageRepository.deleteById(it)
+            productImageRepository.deleteById(it)
         }
         newImages.forEach {
-            val productImageEntity = imageMapper.mapToImageEntity(it, product)
-            imageRepository.save(productImageEntity)
+            val productImageEntity = productImageMapper.mapToImageEntity(it, product)
+            productImageRepository.save(productImageEntity)
             productImages.add(productImageEntity)
         }
         product.images = productImages

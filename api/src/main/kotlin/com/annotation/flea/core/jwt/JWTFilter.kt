@@ -1,5 +1,6 @@
 package com.annotation.flea.core.jwt
 
+import com.annotation.flea.domain.entity.Role
 import com.annotation.flea.presentation.dto.CustomUserDetails
 import com.annotation.flea.domain.entity.User
 import io.jsonwebtoken.ExpiredJwtException
@@ -44,13 +45,15 @@ class JWTFilter(private val jwtUtil: JWTUtil) : OncePerRequestFilter() {
         val role = jwtUtil.getRole(accessToken)
 
         val user = User(
+            id = null,
             username = username,
             password = "temppassword",
             email = "tempemail",
             name = "tempname",
             phone = "010-0000-0000",
-            address = User.Address("0th St.", "0"),
-            role = role,
+            nickname = "tempnickname",
+            address = emptySet(),
+            role = if(role == Role.ROLE_ADMIN.name) Role.ROLE_ADMIN else Role.ROLE_MEMBER,
         )
         val customUserDetails = CustomUserDetails(user)
 

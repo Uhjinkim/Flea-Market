@@ -5,7 +5,7 @@ import java.util.*
 
 
 data class Product(
-    val id: UUID,
+    val id: UUID? = null,
     val title: String,
     val description: String,
     val price: Int,
@@ -13,7 +13,6 @@ data class Product(
     val category: Category,
     val serialNumber: String,
     val seller: User,
-    var buyer: User? = null,
     val createdAt : LocalDateTime,
     var isSold: Boolean = false,
 ) {

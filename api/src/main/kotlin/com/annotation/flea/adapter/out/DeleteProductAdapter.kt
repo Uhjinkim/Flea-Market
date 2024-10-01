@@ -12,7 +12,7 @@ class DeleteProductAdapter(
             println("Product is sold, cannot be deleted")
             return false
         }
-        val entity = productRepository.findById(product.id).orElseThrow {
+        val entity = productRepository.findById(product.id!!).orElseThrow {
             throw Exception("Product not found")
         }
         productRepository.delete(entity)

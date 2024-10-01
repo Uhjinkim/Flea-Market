@@ -15,7 +15,6 @@ class JoinController(
     @ResponseBody
     fun joinP(userDTO: UserDTO): String {
         println("${userDTO.username} 회원가입 요청")
-        joinService.join(userDTO)
         if(joinService.join(userDTO)) {
             return "ok"
         }
