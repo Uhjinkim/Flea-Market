@@ -17,6 +17,7 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.authentication.logout.LogoutFilter
 import org.springframework.web.cors.CorsConfiguration
+import java.util.*
 
 @Configuration
 @EnableWebSecurity
@@ -40,12 +41,12 @@ class SecurityConfig(
         http
             .cors { it.configurationSource {
                 val configuration = CorsConfiguration()
-                configuration.allowedOrigins = listOf("http://localhost:3000")
-                configuration.allowedMethods = listOf("*")
+                configuration.allowedOrigins = Collections.singletonList("http://localhost:3000")
+                configuration.allowedMethods = Collections.singletonList("*")
                 configuration.allowCredentials = true
-                configuration.allowedHeaders = listOf("*")
+                configuration.allowedHeaders = Collections.singletonList("*")
                 configuration.maxAge = 3600L
-                configuration.exposedHeaders = listOf("Authorization")
+                configuration.exposedHeaders = Collections.singletonList("Authorization")
                 configuration
             }
             }
